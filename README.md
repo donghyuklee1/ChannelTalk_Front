@@ -1,4 +1,4 @@
-# ChannelTalk Frontend
+Channel Talk Hacky-Talky 4기 [이걸로하자고] 팀의 Frontend 레포지토리입니다!
 
 Collaborative frontend workspace for the ChannelTalk project. This repository contains the shared UI code, prompt assets, and integration layer for the ChannelTalk experience.
 
