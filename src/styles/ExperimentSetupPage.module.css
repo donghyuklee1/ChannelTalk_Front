@@ -1,0 +1,33 @@
+.grid {
+  display: grid;
+  gap: 2rem;
+  width: min(1080px, 100%);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.leftPane {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rightPane {
+  position: relative;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  color: var(--color-danger);
+  font-size: 0.9rem;
+}
+
+.divider {
+  height: 1px;
+  background: var(--color-border);
+}

@@ -4,7 +4,8 @@ import type { ChatMessage } from '@types/chat';
 
 const DEFAULT_SESSION_ID = 'default';
 
-export const useChat = (sessionId: string = DEFAULT_SESSION_ID) => {
+export const useChat = (sessionId?: string) => {
+  const activeSessionId = sessionId ?? DEFAULT_SESSION_ID;
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -14,14 +15,14 @@ export const useChat = (sessionId: string = DEFAULT_SESSION_ID) => {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await fetchSessionMessages(sessionId);
+      const data = await fetchSessionMessages(activeSessionId);
       setMessages(data);
     } catch (err) {
       setError('메시지를 불러오지 못했습니다.');
     } finally {
       setIsLoading(false);
     }
-  }, [sessionId]);
+  }, [activeSessionId]);
 
   const handleSendMessage = useCallback(
     async (content: string) => {
@@ -37,7 +38,7 @@ export const useChat = (sessionId: string = DEFAULT_SESSION_ID) => {
       setIsSending(true);
       setError(null);
       try {
-        const sent = await sendMessage({ sessionId, message: content });
+        const sent = await sendMessage({ sessionId: activeSessionId, message: content });
         setMessages((prev) =>
           prev.map((msg) => (msg.id === optimisticMessage.id ? sent : msg))
         );
@@ -52,7 +53,7 @@ export const useChat = (sessionId: string = DEFAULT_SESSION_ID) => {
         setIsSending(false);
       }
     },
-    [sessionId]
+    [activeSessionId]
   );
 
   useEffect(() => {
